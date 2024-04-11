@@ -1,0 +1,17 @@
+checks for labeled_transactions:
+  - row_count > 0:
+      name: Table is empty
+  - duplicate_count(transaction_id) = 0:
+      name: Duplicate transaction ID
+  - schema:
+      fail:
+        when required column missing:
+          ["TRANSACTION_ID", "IS_FRAUDULENT"]
+  - missing_count(transaction_id) = 0:
+      name: Transaction ID cannot be null
+  - missing_count(is_fraudulent) = 0: 
+      name: if_fraudulent cannot be null
+  # This one cannot de used, cause the tables must exist in the same datasource, according to:
+  # https://docs.soda.io/soda-cl/reference.html
+  #   - values in (transaction_id) must exist in customer_transactions (transaction_id):
+  #       name: Transaction IDs don't match reference table

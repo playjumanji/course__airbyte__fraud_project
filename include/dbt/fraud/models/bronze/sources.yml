@@ -1,0 +1,12 @@
+ersion: 2
+
+sources:
+  - name: raw__postgres
+    schema: raw__postgres
+    tables:
+      - name: customer_transactions
+
+  - name: raw__mysql
+    schema: raw__mysql
+    tables:
+      - name: labeled_transactions

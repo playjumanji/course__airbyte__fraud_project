@@ -1,0 +1,35 @@
+connections:
+  localhost.airbyte → {your snowflake instance id}.PROJECT.RAW__POSTGRES:
+    source:
+      localhost.airbyte:
+        host: host.docker.internal
+        port: 5432
+        databaseName: airbyte
+        username: docker
+        password: docker
+    destination:
+      {your snowflake instance id}.PROJECT.RAW_MYSQL:
+        host: {your snowflake host}
+        role: AIRBYTE_ROLE
+        warehouse: AIRBYTE_WAREHOUSE
+        database: PROJECT
+        schema: RAW__MYSQL
+        username: AIRBYTE_USER
+        password: {your sercure password}
+  localhost:data → {your snowflake instance id}.PROJECT.RAW__MYSQL:
+    source:
+      localhost.data:
+        host: host.docker.internal
+        port: 3306
+        database: data
+        username: docker
+        password: docker
+    destination:
+      {your snowflake instance id}.PROJECT.RAW__POSTGRES:
+        host: {your snowflake host}
+        role: AIRBYTE_ROLE
+        warehouse: AIRBYTE_WAREHOUSE
+        database: PROJECT
+        schema: RAW__POSTGRES
+        username: AIRBYTE_USER
+        password: {your sercure password}

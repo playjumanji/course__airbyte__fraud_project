@@ -1,9 +1,11 @@
-data_source staging:
+# TODO: for some reason, env variables are not working here. Replace these value before sending to git
+data_source raw__postgres:
   type: snowflake
-  username: ${SNOWFLAKE_USER}
-  password: ${SNOWFLAKE_PASSWORD}
-  account: ${SNOWFLAKE_ACCOUNT}
-  database: AIRBYTE_DATABASE
+  schema: RAW__POSTGRES
+  username: AIRBYTE_USER
+  password: 'H-Gt=APj~"vnxS2DM];,#N'
+  account: 'df99339.sa-east-1.aws'
+  database: PROJECT
   warehouse: AIRBYTE_WAREHOUSE
   connection_timeout: 240
   role: AIRBYTE_ROLE
@@ -11,4 +13,19 @@ data_source staging:
   session_params:
     QUERY_TAG: soda-queries
     QUOTED_IDENTIFIERS_IGNORE_CASE: false
-  schema: STAGING
+  
+
+data_source raw__mysql:
+  type: snowflake
+  schema: RAW__MYSQL
+  username: AIRBYTE_USER
+  password: 'H-Gt=APj~"vnxS2DM];,#N'
+  account: 'df99339.sa-east-1.aws'
+  database: PROJECT
+  warehouse: AIRBYTE_WAREHOUSE
+  connection_timeout: 240
+  role: AIRBYTE_ROLE
+  client_session_keep_alive: true
+  session_params:
+    QUERY_TAG: soda-queries
+    QUOTED_IDENTIFIERS_IGNORE_CASE: false

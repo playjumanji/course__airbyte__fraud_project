@@ -1,12 +1,19 @@
-def check(scan_name, checks_subpath=None, data_source='staging', project_root='include'):
+import os
+import logging
+
+
+def check(
+    scan_name: str, checks_path: str, data_source="staging", project_root="include"
+):
     from soda.scan import Scan
 
-    print('Running Soda Scan ...')
-    config_file = f'{project_root}/soda/configuration.yml'
-    checks_path = f'{project_root}/soda/checks'
-
-    if checks_subpath:
-        checks_path += f'/{checks_subpath}'
+    logging.info("Running Soda Scan ...")
+    config_file = f"{project_root}/soda/configuration.yml"
+    checks_base_path = f"{project_root}/soda/checks/tables"
+    checks_path = os.path.join(checks_base_path, checks_path)
+    logging.info(f"config_file={config_file}")
+    logging.info(f"checks_path={checks_path}")
+    logging.info(f"data_source={data_source}")
 
     scan = Scan()
     scan.set_verbose()
@@ -19,6 +26,6 @@ def check(scan_name, checks_subpath=None, data_source='staging', project_root='i
     print(scan.get_logs_text())
 
     if result != 0:
-        raise ValueError('Soda Scan failed')
+        raise ValueError("Soda Scan failed")
 
     return result

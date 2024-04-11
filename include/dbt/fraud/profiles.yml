@@ -1,11 +1,11 @@
 fraud:
   outputs:
     dev:
-      account: ig91942.eu-west-3.aws
-      database: AIRBYTE_DATABASE
-      password: snowflake
+      account: df99339.sa-east-1.aws
+      database: PROJECT
+      password: H-Gt=APj~"vnxS2DM];,#N
       role: AIRBYTE_ROLE
-      schema: prod
+      schema: silver
       threads: 1
       type: snowflake
       user: AIRBYTE_USER
