@@ -79,7 +79,7 @@ What we need now is a detination.
 #### Destination
 In Airbyte, click 'Destinations', on the left panel. For a new destination, select type 'Snowflake'. Diverging with the couurse, I've decided to have a raw/staging area for each source, and not only one for all of them. Tiis is a pattern I've been using in some of my projects, and it helped me a lot with the organization the data and visual tracebility.
 
-So, You've got to create 2 destinations of type Snowflake. Following the naming pattern I generally use, we would have ```{snowflake workspace id}.PROJECT.RAW__{source database vendor}```. Let em give you and example:
+So, you've got to create 2 destinations of type Snowflake. Following the naming pattern I generally use, we would have ```{snowflake workspace id}.PROJECT.RAW__{source database vendor}```. Let em give you and example:
 
 ![Airbyte Destination - raw__mysql](docs/images/airbyte_destination_snowflake_mysql.png)
 To fill the required fields for both the destinations, you can use [this file](configs/airbyte/connections.yml) as reference.
@@ -91,9 +91,14 @@ In the end, you must have 2 destinations, just like these:
 Now we need to connect the sources and destinations.
 
 ### Connections
+You'll have to create 2 connections, each one with the corresponding pair 'source-destination'. You might keep any schedule you like, since the data will not change in this project. Scheduling will have just the effect to show you that this functionality in Airbyte really works, but if you really need to see it in action, choose whatever suits you better. In my case, the schedule was defined 'Daily'.
+
+For the source Postgres  and destination RAW__POSTGRES, this is the stream you need to activate and the configs required.
+
+
 
 ## Configuration
-### Configure the airbyte connection
+### Configure airbyte connection
 - Connection id: airbyte
 - Connection type: Airbyte
 - Host: airbyte-server
@@ -101,8 +106,13 @@ Now we need to connect the sources and destinations.
 ![Airflow connection: airbyte](docs/images/airflow_connection_airbyte.png)
 
 # The Aiflow DAG
-After changing all the necessary variables in the project, you can log into airflow and check this DAG availabe in your DAG list:
+After changing all the necessary variables in the project, you can log into airflow and check'em is available in your DAG list:
 ![DAG list](docs/images/airflow_dag_list.png)
 
 The you can select this one and check the details:
 ![DAG customer_metrics](docs/images/airflow_dag_customer_metrics.png)
+
+Notice that the DAG is basically generated in an automated manner by importing and using this beautiful tool called 'cosmos'.
+```python
+from cosmos.airflow.task_group import DbtTaskGroup
+```
